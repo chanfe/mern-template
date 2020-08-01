@@ -1,5 +1,5 @@
-const Task = require('../models/taskModel')
-const List = require('../models/listModel')
+const Task = require("../models/taskModel")
+const List = require("../models/listModel")
 
 // @desc   Get all from Task
 // @route  GET /api/v1/Task
@@ -13,10 +13,10 @@ exports.getTask = async (req, res, next) => {
     } catch (error) {
       res.sendStatus(500).json({
         success: false,
-        error: 'Server error'
-      })
+        error: "Server error"
+      });
     }
-}
+};
 
 // @desc   Get one from Task
 // @route  GET /api/v1/Task/:id
@@ -26,7 +26,7 @@ exports.showTask = async (req, res, next) => {
         if (!task) {
             res.status(404).json({
                 success: false,
-                error: 'Not Found'
+                error: "Not Found"
             });
         }
         return res.status(200).json({
@@ -35,10 +35,9 @@ exports.showTask = async (req, res, next) => {
         });
         
     } catch (error) {
-      console.log(error)
       res.status(500).json({
         success: false,
-        error: 'Server error'
+        error: "Server error"
       })
     }
 }
@@ -48,11 +47,11 @@ exports.showTask = async (req, res, next) => {
 exports.addTask = async (req, res, next) => {
     try {
       //check is List ID exists.
-      const list = await List.findById(req.params.id) 
+      const list = await List.findById(req.params.id);
       if (!list) {
         res.status(404).json({
             success: false,
-            error: 'List Id Not Found'
+            error: "List Id Not Found"
         });
       }
 
@@ -60,7 +59,6 @@ exports.addTask = async (req, res, next) => {
         ...(req.body),
         list:req.params.id
       }
-      console.log(body)
       const task = await Task.create(body);
 
       //add task id to List ID array
@@ -75,7 +73,7 @@ exports.addTask = async (req, res, next) => {
       console.log(error)
       res.sendStatus(500).json({
         success: false,
-        error: 'Server error'
+        error: "Server error"
       })
     }
 }
@@ -94,7 +92,7 @@ exports.updateTask = async (req, res, next) => {
     } catch (error) {
       res.sendStatus(500).json({
         success: false,
-        error: 'Server error'
+        error: "Server error"
       })
     }
 }
@@ -103,13 +101,11 @@ exports.updateTask = async (req, res, next) => {
 // @route  DELETE /api/v1/Task/:id
 exports.deleteTask = async (req, res, next) => {
     try {
-      console.log(req.body);
-
       const task = await Task.findById(req.body.id);
       if (!task) {
         res.status(404).json({
           success: false,
-          error: 'Not Found'
+          error: "Not Found"
         });
       }
 
@@ -119,6 +115,9 @@ exports.deleteTask = async (req, res, next) => {
         data: {}
       });
     } catch (error) {
-
+        res.status(500).json({
+            success: false,
+            error: "unknown error"
+          });
     }
 }

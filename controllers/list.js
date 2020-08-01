@@ -16,9 +16,9 @@ exports.getList = async (req, res, next) => {
       res.status(500).json({
         success: false,
         error: "Server error"
-      })
+      });
     }
-}
+};
 
 // @desc   Get one from List
 // @route  GET /api/v1/List/:id
@@ -37,7 +37,6 @@ exports.showList = async (req, res, next) => {
         });
         
     } catch (error) {
-      console.log(error)
       res.status(500).json({
         success: false,
         error: "Server error"

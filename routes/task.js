@@ -1,17 +1,17 @@
-const express = require('express');
+const express = require("express");
 const taskRouter = express.Router();
 
-const { getTask, showTask, addTask, updateTask, deleteTask } = require('../controllers/task');
+const { getTask, showTask, addTask, updateTask, deleteTask } = require("../controllers/task");
 
 
-taskRouter.route('/:id')
+taskRouter.route("/:id")
   .get(showTask)
   .post(addTask)
-  .delete(deleteTask)
+  .delete(deleteTask);
 
   
-taskRouter.route('/')
-  .get(getTask)
+taskRouter.route("/")
+  .get(getTask);
 
 
 

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const ListSchema = new Schema({
   title: {
@@ -17,4 +17,4 @@ const ListSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('List', ListSchema);
+module.exports = mongoose.model("List", ListSchema);
