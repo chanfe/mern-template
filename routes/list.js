@@ -12,6 +12,4 @@ listRouter.route("/")
   .delete(deleteList)
   .put(updateList);
 
-
-
 module.exports = listRouter;
