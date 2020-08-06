@@ -7,9 +7,9 @@ const TaskSchema = new Schema({
     required: true,
   },
   list:{
-      //this is not a Schema.Types.ObjectID because I cast the Art Model into a number instead
-      type: Schema.Types.Number, 
-      ref: "List"
+      type: Schema.Types.ObjectID, 
+      ref: "List",
+      required: true,
   },
   createdAt: {
     type: Date,

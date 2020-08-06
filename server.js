@@ -11,8 +11,8 @@ const connectDB = require("./config/db");
 connectDB();
 
 // Routes Import
-// const art = require("./routes/art");
-// const reaction = require("./routes/reaction");
+const list = require("./routes/list");
+const task = require("./routes/task");
 
 // Express configuration
 const app = express();
@@ -27,8 +27,8 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 // API Routes
-// app.use("/api/v1/art", art);
-// app.use("/api/v1/reaction", reaction);
+app.use("/api/v1/list", list);
+app.use("/api/v1/task", task);
 
 // if api is not being used then it use the client 
 if (process.env.NODE_ENV === "production") {           
@@ -41,4 +41,4 @@ if (process.env.NODE_ENV === "production") {
 
 // Express server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server stlisted on port ${PORT}`));
