@@ -46,32 +46,14 @@ exports.showTask = async (req, res, next) => {
 // @route  POST /api/v1/Task/:id
 exports.addTask = async (req, res, next) => {
     try {
-      //check is List ID exists.
-      const list = await List.findById(req.params.id);
-      if (!list) {
-        res.status(404).json({
-            success: false,
-            error: "List Id Not Found"
-        });
-      }
-
-      let body = {
-        ...(req.body),
-        list:req.params.id
-      }
-      const task = await Task.create(body);
-
-      //add task id to List ID array
-      list.tasks.push(task)
-      list.save()
-
-      return res.status(201).json({
+      const list = await Task.create(req.body);
+      return res.status(200).json({
         success: true,
-        data: task
+        data: list
       });
     } catch (error) {
-      console.log(error)
-      res.sendStatus(500).json({
+        console.log(error)
+      res.status(500).json({
         success: false,
         error: "Server error"
       })
