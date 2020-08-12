@@ -46,7 +46,6 @@ exports.showTask = async (req, res, next) => {
 // @route  POST /api/v1/Task/
 exports.addTask = async (req, res, next) => {
     try {
-      console.log(req.body)
       const list = await List.findById(req.body.list);
       
       if (!list) {
@@ -75,7 +74,7 @@ exports.addTask = async (req, res, next) => {
 }
   
 // @desc   Update Task
-// -@route  PUT /api/v1/Task-
+// -@route  PUT /api/v1/Task/
 exports.updateTask = async (req, res, next) => {
     try {
       const { _id } = req.body;
@@ -105,7 +104,11 @@ exports.deleteTask = async (req, res, next) => {
         });
       }
 
-      await task.remove();
+      const list = await List.findById(task.list);
+      list.tasks.find(task)
+      console.log(list)
+
+      // await task.remove();
       return res.status(200).json({
         success: true,
         data: {}
