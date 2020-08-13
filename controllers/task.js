@@ -104,18 +104,24 @@ exports.deleteTask = async (req, res, next) => {
         });
       }
       let temp = await List.findById(task.list);
+      const temp2 = temp.tasks.filter((value) => {
+        return value != task.id;
+      })
 
-      const list = await List.updateOne(
-        {_id: temp.list},
-        {
-          ...temp._doc,
-          tasks: temp.tasks.filter((value) => {
-            return value != task.id;
-          })
+      const list = await List.findOneAndUpdate(
+        {_id: temp.id},
+        {$set: {
+          title: temp.title,
+          tasks: temp2,
+          createdAt: temp.createdAt
+          }
         },
-        { new: true },
+        { new: true, upsert: true},
+        (err, res) => {
+          console.log(err, res)
+        }
       )
-
+      
       // await task.remove();
       return res.status(200).json({
         success: true,
