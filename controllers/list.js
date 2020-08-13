@@ -98,7 +98,7 @@ exports.addList = async (req, res, next) => {
 // @route  PUT /api/v1/List
 exports.updateList = async (req, res, next) => {
     try {
-      const { _id } = req.body;
+      const { _id } = req.params.id;
       const newList = await List.findOneAndUpdate(
         { _id },
         req.body,
@@ -117,7 +117,7 @@ exports.updateList = async (req, res, next) => {
 // @route  DELETE /api/v1/List
 exports.deleteList = async (req, res, next) => {
     try {
-      const list = await List.findById(req.body.id);
+      const list = await List.findById(req.params.id);
       if (!list) {
         res.status(404).json({
           success: false,

@@ -77,7 +77,7 @@ exports.addTask = async (req, res, next) => {
 // -@route  PUT /api/v1/Task/
 exports.updateTask = async (req, res, next) => {
     try {
-      const { _id } = req.body;
+      const { _id } = req.params.id;
       const newTask = await Task.findOneAndUpdate(
         { _id },
         req.body,
@@ -96,27 +96,36 @@ exports.updateTask = async (req, res, next) => {
 // @route  DELETE /api/v1/Task/:id
 exports.deleteTask = async (req, res, next) => {
     try {
-      const task = await Task.findById(req.body.id);
+      const task = await Task.findById(req.params.id);
       if (!task) {
         res.status(404).json({
           success: false,
           error: "Not Found"
         });
       }
+      let temp = await List.findById(task.list);
 
-      const list = await List.findById(task.list);
-      list.tasks.find(task)
-      console.log(list)
+      const list = await List.updateOne(
+        {_id: temp.list},
+        {
+          ...temp._doc,
+          tasks: temp.tasks.filter((value) => {
+            return value != task.id;
+          })
+        },
+        { new: true },
+      )
 
       // await task.remove();
       return res.status(200).json({
         success: true,
-        data: {}
+        data: list
       });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            error: "unknown error"
-          });
+      console.log(error)
+      res.status(500).json({
+          success: false,
+          error: "unknown error"
+        });
     }
 }
