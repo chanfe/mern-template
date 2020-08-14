@@ -125,6 +125,11 @@ exports.deleteList = async (req, res, next) => {
         });
       }
 
+      list.tasks.map(async (task) => {
+        let rm = await Task.findById(task);
+        await rm.remove();
+      })
+
       list.remove();
       return res.status(200).json({
         success: true,
