@@ -18,6 +18,7 @@ class List extends Component {
     axios.get("/api/v1/List/" + this.props.ObjectId)
       .then((res) => {
         this.setState({
+          
           items:res.data.data
         });
       });
